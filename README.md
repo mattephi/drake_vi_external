@@ -1,2 +1,2 @@
-# drake_vi_external
-external test of vi in drake
+# Drake VI
+External injection example for Drake VI
