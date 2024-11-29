@@ -1,10 +1,14 @@
 # SPDX-License-Identifier: MIT-0
 
-add_library(particle particle.cc particle.h)
+add_library(particle particle.cc particle.h
+        Pendulum.cc
+        Pendulum.h
+        VariationalIntegrator.cc
+        VariationalIntegrator.h)
 target_link_libraries(particle drake::drake)
 
 add_executable(particle_test particle_test.cc)
-target_link_libraries(particle_test particle drake::drake gtest)
+target_link_libraries(particle_test particle drake::drake pinocchio::pinocchio gtest)
 add_test(NAME cc_particle_test COMMAND particle_test)
 set_tests_properties(cc_particle_test PROPERTIES LABELS small TIMEOUT 60)
 

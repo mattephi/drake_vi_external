@@ -2,6 +2,11 @@
 
 cmake_minimum_required(VERSION 3.16)
 project(drake_cmake_installed_apt)
+set(CMAKE_PREFIX_PATH "/home/vscode/miniforge3/envs/vidrake" ${CMAKE_PREFIX_PATH})
+
+if(POLICY CMP0167)
+    cmake_policy(SET CMP0167 NEW)
+endif()
 
 include(CTest)
 
@@ -22,13 +27,18 @@ target_include_directories(gtest PUBLIC
 target_link_libraries(gtest Threads::Threads)
 
 find_package(drake CONFIG REQUIRED PATHS /opt/drake)
-find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
+find_package (Python3 COMPONENTS Interpreter Development REQUIRED)
+find_package(pinocchio REQUIRED PATHS /home/vscode/miniforge3/envs/vidrake)
 
-get_filename_component(DRAKE_PYTHONPATH "${drake_DIR}" DIRECTORY)
-get_filename_component(DRAKE_PYTHONPATH "${DRAKE_PYTHONPATH}" DIRECTORY)
-set(DRAKE_PYTHONPATH
-  "${DRAKE_PYTHONPATH}/python${drake_PYTHON_VERSION}/site-packages"
-)
+
+#find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
+
+#get_filename_component(DRAKE_PYTHONPATH "${drake_DIR}" DIRECTORY)
+#get_filename_component(DRAKE_PYTHONPATH "${DRAKE_PYTHONPATH}" DIRECTORY)
+#
+#set(DRAKE_PYTHONPATH
+#  "${DRAKE_PYTHONPATH}/python${drake_PYTHON_VERSION}/site-packages"
+#)
 
 add_subdirectory(src)
 
